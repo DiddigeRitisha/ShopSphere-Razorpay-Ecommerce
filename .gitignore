@@ -6,3 +6,10 @@ node_modules/
 dist/
 build/
 coverage/
+backend-error.txt
+
+**/backend-error.txt
+
+/npm
+
+/**/npm
