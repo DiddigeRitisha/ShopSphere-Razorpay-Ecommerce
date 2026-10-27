@@ -1,93 +1,439 @@
-# ShopSphere — E-Commerce Website with Razorpay Test Payments
+# 🛍️ ShopSphere — Full-Stack E-Commerce Website
 
-A full-stack learning project built with React + Vite, Node.js + Express, MongoDB/Mongoose and Razorpay Checkout in **test mode**.
+A full-stack e-commerce web application built using **React, Vite, Node.js, Express.js, MongoDB, and Razorpay**. ShopSphere provides product browsing, shopping cart management, order processing, and secure payment verification using Razorpay's test environment.
 
-## Requirements
-- Node.js 20 LTS or newer (Node 22 LTS recommended)
-- npm
-- MongoDB local service or a MongoDB Atlas database
-- Razorpay test account keys (optional until testing payment)
+> **Payment Mode:** Razorpay Test Mode — no real money is charged.
 
-## Windows PowerShell setup
-Open PowerShell in the folder that contains the root `package.json`, `backend` and `frontend` folders. If the ZIP extraction creates an extra `ecommerce-razorpay-fullstack` folder, enter that inner folder before running npm commands.
+---
+
+## 📌 Table of Contents
+
+- [Features](#-features)
+- [Technology Stack](#-technology-stack)
+- [Requirements](#-requirements)
+- [Project Structure](#-project-structure)
+- [Installation and Setup](#-installation-and-setup)
+- [Environment Configuration](#-environment-configuration)
+- [Running the Application](#-running-the-application)
+- [Demo Administrator Setup](#-demo-administrator-setup)
+- [Razorpay Test Payments](#-razorpay-test-payments)
+- [API Documentation](#-api-documentation)
+- [Optional Kaggle Dataset](#-optional-kaggle-dataset)
+- [Production Considerations](#-production-considerations)
+- [Author](#-author)
+
+---
+
+## ✨ Features
+
+- **Product Catalog:** Browse products across multiple categories.
+- **Product Details:** View individual product information.
+- **Authentication:** User registration, login, and account access.
+- **Shopping Cart:** Add products and manage cart items.
+- **Order Management:** Place orders and view order history.
+- **Payment Integration:** Razorpay Checkout integration in test mode.
+- **Cash on Delivery:** Alternative demo checkout flow.
+- **Administrator Dashboard:** Manage products and order statuses.
+- **REST API:** Backend endpoints for authentication, products, orders, and payments.
+- **Database Integration:** MongoDB with Mongoose.
+- **Responsive Interface:** React-based frontend powered by Vite.
+
+*Features depend on the functionality implemented in the current application.*
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technologies |
+|---|---|
+| Frontend | React, Vite, JavaScript, HTML5, CSS3 |
+| Backend | Node.js, Express.js |
+| Database | MongoDB, Mongoose |
+| Payment Gateway | Razorpay Checkout |
+| API Architecture | REST API |
+| Version Control | Git, GitHub |
+| Development Environment | Visual Studio Code |
+
+---
+
+## 📋 Requirements
+
+Install the following software before running the application:
+
+- **Node.js:** Version 20 or newer; Node.js 22 LTS is recommended.
+- **npm:** Included with Node.js.
+- **MongoDB:** Local MongoDB installation or MongoDB Atlas account.
+- **Git:** For version control.
+- **Razorpay Test Account:** Optional until online payment testing is required.
+
+Verify your Node.js and npm installations:
 
 ```powershell
-# 1. Install root developer tool
+node --version
+npm --version
+git --version
+```
+
+---
+
+## 📁 Project Structure
+
+The project should have the following structure:
+
+```text
+ecommerce-razorpay-fullstack/
+│
+├── backend/
+│   ├── src/
+│   │   ├── config/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── utils/
+│   │   ├── app.js
+│   │   └── server.js
+│   │
+│   ├── scripts/
+│   │   └── seed.js
+│   │
+│   ├── .env.example
+│   └── package.json
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── pages/
+│   │   ├── App.jsx
+│   │   ├── api.js
+│   │   └── main.jsx
+│   │
+│   ├── index.html
+│   └── package.json
+│
+├── docs/
+│   ├── API_REFERENCE.md
+│   └── PROJECT_REPORT.md
+│
+├── .gitignore
+├── package.json
+├── package-lock.json
+└── README.md
+```
+
+**Note:** This is the intended project layout. Keep only files and folders that actually exist in your project.
+
+---
+
+## 🚀 Installation and Setup
+
+### Step 1: Open the Project
+
+Open the project root in Visual Studio Code.
+
+In PowerShell, navigate to the folder containing the root `package.json`, `backend`, and `frontend` directories.
+
+If your extracted project contains an extra nested `ecommerce-razorpay-fullstack` folder, enter that inner folder before running the following commands.
+
+### Step 2: Install Dependencies
+
+Install the root dependencies:
+
+```powershell
 npm install
+```
 
-# 2. Install backend and frontend dependencies
+Install backend dependencies:
+
+```powershell
 npm install --prefix backend
+```
+
+Install frontend dependencies:
+
+```powershell
 npm install --prefix frontend
+```
 
-# 3. Create your backend environment file
+### Step 3: Configure Environment Variables
+
+Create the backend environment file:
+
+```powershell
 Copy-Item backend/.env.example backend/.env
-# Open backend/.env and set MONGODB_URI and JWT_SECRET.
+```
 
-# 4. Start MongoDB locally, or set your Atlas connection string in backend/.env.
+Open `backend/.env` and configure your MongoDB connection and JWT secret.
 
-# 5. Seed demo products (in a second terminal after .env is configured)
+### Step 4: Start MongoDB
+
+Ensure that your local MongoDB service is running, or configure a valid MongoDB Atlas connection string in `backend/.env`.
+
+### Step 5: Seed Demo Products
+
+After configuring the environment variables, run:
+
+```powershell
 npm run seed --prefix backend
+```
 
-# 6. Run backend and frontend together
+This command runs the backend's product-seeding script, provided it is configured in the backend package scripts.
+
+### Step 6: Start the Application
+
+If your root `package.json` defines a development script that starts both applications, run:
+
+```powershell
 npm run dev
 ```
 
-Frontend: http://localhost:5173  
-Backend health: http://localhost:5000/api/health
+Otherwise, start the frontend and backend separately using the instructions below.
 
-If you prefer separate terminals:
+---
+
+## ▶️ Running the Application
+
+### Option A: Separate Terminals
+
+**Terminal 1 — Backend**
+
 ```powershell
 npm run dev --prefix backend
+```
+
+**Terminal 2 — Frontend**
+
+```powershell
 npm run dev --prefix frontend
 ```
 
-## Environment variables
-Copy `backend/.env.example` to `backend/.env`. Never commit `.env` or expose Razorpay secret/JWT secret in frontend code.
+### Option B: Root Development Command
 
-- `MONGODB_URI`: local MongoDB URI or Atlas connection string
-- `JWT_SECRET`: long random secret (at least 32 characters)
-- `RAZORPAY_KEY_ID` and `RAZORPAY_KEY_SECRET`: Razorpay **test** credentials from Dashboard → Account & Settings → API Keys
-- `CLIENT_URL`: `http://localhost:5173`
+If the root `package.json` includes a script that starts both services:
 
-The frontend receives only the public Razorpay key ID from the backend. The secret stays server-side.
+```powershell
+npm run dev
+```
 
-## Demo admin
-After seeding, register a user normally, then promote that user to admin in MongoDB for local development only:
+### Local Development URLs
+
+| Service | URL |
+|---|---|
+| Frontend | http://localhost:5173 |
+| Backend Health Check | http://localhost:5000/api/health |
+
+Open the frontend URL in your browser after both services have started successfully.
+
+---
+
+## 🔐 Environment Configuration
+
+The backend reads configuration values from `backend/.env`.
+
+| Variable | Purpose |
+|---|---|
+| `PORT` | Backend server port |
+| `NODE_ENV` | Application environment |
+| `CLIENT_URL` | Frontend origin |
+| `MONGODB_URI` | MongoDB connection string |
+| `JWT_SECRET` | Secret used for JWT signing |
+| `JWT_EXPIRES_IN` | JWT expiration period |
+| `RAZORPAY_KEY_ID` | Razorpay test Key ID |
+| `RAZORPAY_KEY_SECRET` | Razorpay test Key Secret |
+
+Example local configuration:
+
+```dotenv
+PORT=5000
+NODE_ENV=development
+CLIENT_URL=http://localhost:5173
+MONGODB_URI=mongodb://127.0.0.1:27017/shopsphere
+JWT_SECRET=replace-with-a-long-random-secret
+JWT_EXPIRES_IN=7d
+RAZORPAY_KEY_ID=rzp_test_replace_me
+RAZORPAY_KEY_SECRET=replace_with_razorpay_test_secret
+```
+
+Replace the example values with your own development credentials.
+
+### Security Guidelines
+
+- Never commit `backend/.env` to GitHub.
+- Keep `.env.example` free of real credentials.
+- Never expose `RAZORPAY_KEY_SECRET` in frontend code.
+- Use a strong, randomly generated JWT secret.
+- Use test credentials during development.
+
+The frontend should receive only the public Razorpay Key ID through the appropriate backend integration.
+
+---
+
+## 👨‍💻 Demo Administrator Setup
+
+For local development, you can promote a registered user to administrator in MongoDB.
+
+Open `mongosh` and switch to the database configured in `MONGODB_URI`.
+
+Then run:
+
 ```javascript
-// In mongosh, switch to the database configured in MONGODB_URI:
-db.users.updateOne({ email: "your-email@example.com" }, { $set: { role: "admin" } })
-```
-Sign out and sign back in to refresh the JWT role. Do not use this manual promotion pattern in a public production environment; use a controlled admin provisioning process.
-
-## Razorpay test payment
-1. Add your Razorpay test Key ID and Key Secret to `backend/.env`.
-2. Restart the backend.
-3. Add a product to cart and go to checkout.
-4. Choose Razorpay and use the test payment details shown in your Razorpay test dashboard/docs. Test mode does not move real money.
-5. The backend creates the order and verifies the returned signature before marking it paid.
-
-If Razorpay keys are not configured, the app still supports the demo **Cash on Delivery** order flow. Never mark an online payment as paid based only on the browser callback; signature verification must succeed on the server.
-
-## API overview
-- `GET /api/health`
-- `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/me`
-- `GET /api/products`, `GET /api/products/:id`
-- `POST /api/products` (admin), `PUT /api/products/:id` (admin), `DELETE /api/products/:id` (admin)
-- `POST /api/orders` (COD), `GET /api/orders/my`, `GET /api/orders/:id`
-- `POST /api/payments/create-order`, `POST /api/payments/verify`
-- `GET /api/admin/orders`, `PATCH /api/admin/orders/:id/status`
-
-## Project structure
-```text
-ecommerce-razorpay-fullstack/
-  backend/src/             Express app, routes, models, middleware
-  backend/scripts/seed.js  demo catalog seed
-  frontend/src/            React pages and cart/auth contexts
-  docs/                    project report and API notes
+db.users.updateOne(
+  { email: "your-email@example.com" },
+  { $set: { role: "admin" } }
+)
 ```
 
-## Important production checklist
-This is a project starter, not a compliance certification. Before real launch, configure HTTPS, production secrets, secure cookie/token strategy, email verification/password reset, audit logging, monitoring, backups, payment webhooks with signature verification and idempotency, tax/shipping rules, privacy/terms, and a proper admin provisioning process. Test Razorpay only until the merchant account is approved for live mode.
+Replace the email with the address of your registered account.
 
-## Optional Kaggle dataset connection
-The project brief mentions the [Brazilian E-Commerce Public Dataset by Olist on Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce). The app seeds a curated demo catalog of 32 products across Electronics, Fashion, Home, Accessories, Beauty and Footwear by default so it can be run without downloading a large dataset. If your instructor requires the Kaggle data specifically, download it from Kaggle, review its license/terms, and map its product CSV fields into the `Product` schema (`product_name` → `name`, `product_category_name` → `category`, product image URL if available → `image`). Olist's dataset is primarily historical Brazilian marketplace orders, customers, sellers, products and payments; it is not a ready-made modern storefront catalog, so normalize categories and convert prices/currency deliberately rather than treating historical BRL values as INR.
+Sign out and sign in again to refresh the authentication token if the application stores the role in its JWT.
+
+> **Security warning:** This is a local development procedure. A production application should use controlled administrator provisioning and appropriate access controls.
+
+---
+
+## 💳 Razorpay Test Payments
+
+ShopSphere integrates Razorpay Checkout for testing the online payment workflow.
+
+### Configuration
+
+1. Create or access your Razorpay account.
+2. Switch to test mode.
+3. Obtain your test API credentials.
+4. Add the test Key ID and Key Secret to `backend/.env`.
+5. Restart the backend.
+
+### Test the Payment Workflow
+
+1. Start the frontend and backend.
+2. Register or sign in to the application.
+3. Browse products and add an item to your cart.
+4. Navigate to checkout.
+5. Select Razorpay as the payment method.
+6. Use the test payment details provided by Razorpay.
+7. Verify that the backend validates the payment signature before marking the order as paid.
+
+If Razorpay credentials are not configured, the application may still support the demo Cash on Delivery workflow.
+
+**Payment security:** Never mark an online payment as successful based only on a browser callback. Payment verification must be performed on the server.
+
+Razorpay test mode is intended for testing and does not charge real money.
+
+---
+
+## 🔌 API Documentation
+
+The backend exposes REST API endpoints for the following operations.
+
+### Health Check
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/health` | Check backend health |
+
+### Authentication
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/api/auth/register` | Register a user |
+| POST | `/api/auth/login` | Authenticate a user |
+| GET | `/api/auth/me` | Retrieve the current user's information |
+
+### Products
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/products` | Retrieve products |
+| GET | `/api/products/:id` | Retrieve a product |
+| POST | `/api/products` | Create a product — admin |
+| PUT | `/api/products/:id` | Update a product — admin |
+| DELETE | `/api/products/:id` | Delete a product — admin |
+
+### Orders
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/api/orders` | Place a Cash on Delivery order |
+| GET | `/api/orders/my` | Retrieve the current user's orders |
+| GET | `/api/orders/:id` | Retrieve an order |
+
+### Payments
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/api/payments/create-order` | Create a payment order |
+| POST | `/api/payments/verify` | Verify payment details |
+
+### Administration
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/admin/orders` | Retrieve orders for administration |
+| PATCH | `/api/admin/orders/:id/status` | Update an order's status |
+
+For request bodies, response formats, authentication requirements, and implementation details, refer to `docs/API_REFERENCE.md`.
+
+*The table reflects the endpoints listed in this project's documentation. Confirm the actual route implementations before relying on these endpoints.*
+
+---
+
+## 📊 Optional Kaggle Dataset
+
+The project brief mentions the Brazilian E-Commerce Public Dataset by Olist.
+
+Dataset: [Brazilian E-Commerce Public Dataset by Olist — Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
+
+The application uses a curated demo catalog so that users can run the project without downloading the complete dataset.
+
+If your instructor requires the Kaggle dataset:
+
+1. Download the dataset from Kaggle.
+2. Review the dataset license and usage terms.
+3. Inspect the product CSV files and available fields.
+4. Map suitable fields to the application's product schema.
+5. Normalize product categories and currency values as needed.
+
+For example:
+
+| Dataset Field | Application Field |
+|---|---|
+| `product_name` | `name` |
+| `product_category_name` | `category` |
+| Available product image URL | `image` |
+
+The Olist dataset primarily contains historical Brazilian marketplace data. It is not a ready-made modern storefront catalog, so additional transformation may be necessary.
+
+---
+
+## 🛡️ Production Considerations
+
+This project is intended for learning and demonstration. Before deploying it for real customers, consider implementing and reviewing:
+
+- HTTPS and secure production configuration
+- Proper secret management
+- Secure authentication and token handling
+- Email verification and password recovery
+- Server-side authorization
+- Payment webhooks and signature verification
+- Payment idempotency and duplicate-request protection
+- Logging, monitoring, and database backups
+- Tax, shipping, privacy, and terms requirements
+- Controlled administrator provisioning
+
+Keep Razorpay in test mode until your merchant account and production integration are appropriately configured.
+
+---
+
+## 👩‍💻 Author
+
+**Diddige Ritisha**
+
+GitHub: [DiddigeRitisha](https://github.com/DiddigeRitisha)
+
+Project Repository: [ShopSphere — E-Commerce Website](https://github.com/DiddigeRitisha/ShopSphere-Razorpay-Ecommerce)
+
+---
+
+## 📄 License
+
+Add a `LICENSE` file if you intend to distribute this project under a specific open-source license.
